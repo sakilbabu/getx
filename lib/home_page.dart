@@ -6,11 +6,13 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MyHomePageController());
-    controller.hello();
+    controller.getActivity();
     return Scaffold(
       body: Center(
         child: GetBuilder<MyHomePageController>(
-          builder: (controller) => Text(controller.greetings ?? "Loading"),
+          builder: (controller) => controller.error != null
+              ? Text(controller.error!)
+              : Text(controller.activity),
         ),
       ),
     );

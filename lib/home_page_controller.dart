@@ -1,27 +1,22 @@
 import 'package:get/get.dart';
 
 class MyHomePageController extends GetxController {
-  String? greetings;
-  Future<String> sayHello(String name) {
-    // return Future.delayed(Duration(seconds: 3), () {
-    //   return "hello $name";
-    // });
-    return Future.error("i m error");
-  }
-
-  @override
-  // void onInit() async {
-  //   super.onInit();
-  //   print("I am From OnInit");
-  //
-  // }
-
-  hello() async {
-    // try {
-    greetings = await sayHello("messi");
-    // } catch (e) {
-    //   print(e);
-    // }
+  final api = Get.put(BoringApi());
+  String activity = "johny dep";
+  String? error;
+  getActivity() async {
+    try {
+      activity = await api.getActivity();
+    } catch (e) {
+      error = e.toString();
+    }
     update();
+  }
+}
+
+class BoringApi extends GetConnect {
+  Future<String> getActivity() async {
+    final response = await get('http://www.boredapi.com/api/activity');
+    return response.body['activity'];
   }
 }
